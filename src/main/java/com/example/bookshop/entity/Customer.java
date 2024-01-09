@@ -20,11 +20,11 @@ public class Customer {
     private String email;
     private String address;
     private String phoneNumber;
-
     @OneToMany(mappedBy = "customer")
-    private List<Order> orders = new ArrayList<>();
+    private List<Order> orders=
+            new ArrayList<>();
 
-    public void addOrder(Order order) {
+    public void addOrder(Order order){
         order.setCustomer(this);
         orders.add(order);
     }

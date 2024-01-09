@@ -1,6 +1,9 @@
 package com.example.bookshop;
 
-import com.example.bookshop.dao.*;
+import com.example.bookshop.dao.AuthorDao;
+import com.example.bookshop.dao.BookDao;
+import com.example.bookshop.dao.GenreDao;
+import com.example.bookshop.dao.PublisherDao;
 import com.example.bookshop.entity.Author;
 import com.example.bookshop.entity.Book;
 import com.example.bookshop.entity.Genre;
@@ -21,72 +24,76 @@ public class BookShopApplication {
     private final BookDao bookDao;
     private final GenreDao genreDao;
     private final PublisherDao publisherDao;
+    @Bean @Transactional @Profile("data")
+    public ApplicationRunner runner(){
+        return  r ->{
+            Author author1=
+                    new Author("Charles Dickens","charles@gmail.com");
+            Author author2=
+                    new Author("Thomas Hardy","hardy@gmail.com");
 
-    @Bean
-    @Transactional
-    @Profile("data")
-    public ApplicationRunner runner() {
-        return r -> {
-            Author author1 = new Author("Charles Dickens", "charles@gmail.com");
-            Author author2 = new Author("Thomas Hardy", "thomas@gmail.com");
+            Publisher publisher1=new Publisher("New Era","newera@gmail.com");
+            Publisher publisher2=new Publisher("Sun","sun@gmail.com");
 
-            Publisher publisher1 = new Publisher("New Era","new@gmail.com");
-            Publisher publisher2 = new Publisher("Sun", "sun@gmail.com");
-
-            Genre genre1 = new Genre();
+            Genre genre1=new Genre();
             genre1.setGenreName("Tragedy");
-            Genre genre2 = new Genre();
+            Genre genre2=new Genre();
             genre2.setGenreName("Adventure");
 
-            Book book1 = new Book(
+            Book book1=new Book(
                     1,
                     IsbnGenerator.generate(),
                     "Oliver Twist",
-                    "Love Story",
+                    "Excellent",
                     50.3,
                     20,
-                    "https://source.unsplash.com/random/400×300/?fruit");
-            Book book2 = new Book(
+                    "https://source.unsplash.com/400x300/?flower"
+            );
+            Book book2=new Book(
                     2,
-                    IsbnGenerator.generate(),
-                    "Bleak House",
-                    "Adventure",
-                    30.9,
-                    20,
-                    "https://source.unsplash.com/random/400×300/?ocean");
-            Book book3 = new Book(
-                    3,
                     IsbnGenerator.generate(),
                     "Great Expectations",
                     "Good Choice",
-                    40.5,
+                    25.3,
                     20,
-                    "https://source.unsplash.com/random/400×300/?nature");
-            Book book4 = new Book(
+                    "https://source.unsplash.com/400x300/?nature"
+            );
+            Book book3=new Book(
+                    3,
+                    IsbnGenerator.generate(),
+                    "Bleak House",
+                    "Nice",
+                    22.3,
+                    20,
+                    "https://source.unsplash.com/400x300/?house"
+            );
+            Book book4=new Book(
                     4,
                     IsbnGenerator.generate(),
                     "Under The Greenwood Tree",
                     "Excellent",
                     50.3,
                     20,
-                    "https://source.unsplash.com/random/400×300/?flower");
-            Book book5 = new Book(
+                    "https://source.unsplash.com/400x300/?tree"
+            );
+            Book book5=new Book(
                     5,
                     IsbnGenerator.generate(),
                     "Return of the Native",
-                    "Good Choice",
-                    35.5,
+                    "Excellent",
+                    25.3,
                     20,
-                    "https://source.unsplash.com/random/400×300/?home");
-            Book book6 = new Book(
+                    "https://source.unsplash.com/400x300/?person"
+            );
+            Book book6=new Book(
                     6,
                     IsbnGenerator.generate(),
                     "Far From the Maddening Crowd",
                     "Excellent",
-                    44.9,
+                    50.3,
                     20,
-                    "https://source.unsplash.com/random/400×300/?crowd");
-
+                    "https://source.unsplash.com/400x300/?crowd"
+            );
             //mapping
             author1.addBook(book1);
             author1.addBook(book2);
@@ -96,29 +103,28 @@ public class BookShopApplication {
             author2.addBook(book5);
             author2.addBook(book6);
 
-            Publisher pub1 = publisherDao.save(publisher1);
+            Publisher pub1=publisherDao.save(publisher1);
+
             pub1.addBook(book1);
             pub1.addBook(book2);
             pub1.addBook(book3);
 
-            Publisher pub2 = publisherDao.save(publisher2);
+            Publisher pub2=publisherDao.save(publisher2);
+
             pub2.addBook(book4);
             pub2.addBook(book5);
             pub2.addBook(book6);
 
-            Genre gen1 = genreDao.save(genre1);
-            book1.addGenre(gen1);
-            book2.addGenre(gen1);
-            book3.addGenre(gen1);
+            Genre gen1=genreDao.save(genre1);
+            Genre gen2=genreDao.save(genre2);
 
-            Genre gen2 = genreDao.save(genre2);
-            book4.addGenre(gen2);
-            book5.addGenre(gen2);
-            book6.addGenre(gen2);
+            book1.addGenres(gen1);
+            book2.addGenres(gen1);
+            book3.addGenres(gen1);
 
-            authorDao.save(author1);
-            authorDao.save(author2);
-
+            book4.addGenres(gen2);
+            book5.addGenres(gen2);
+            book6.addGenres(gen2);
 
 //            bookDao.save(book1);
 //            bookDao.save(book2);
@@ -126,6 +132,9 @@ public class BookShopApplication {
 //            bookDao.save(book4);
 //            bookDao.save(book5);
 //            bookDao.save(book6);
+            authorDao.save(author1);
+            authorDao.save(author2);
+
         };
     }
     public static void main(String[] args) {

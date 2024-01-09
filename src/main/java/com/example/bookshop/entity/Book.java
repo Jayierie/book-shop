@@ -23,28 +23,28 @@ public class Book {
     private double price;
     private int stock;
     private String imgUrl;
-
     @ManyToOne
     private Author author;
     @ManyToOne
     private Publisher publisher;
     @ManyToMany
-    private List<Genre> genres = new ArrayList<>();
-
+    private List<Genre>  genres=
+            new ArrayList<>();
     @OneToMany(mappedBy = "book")
-    private List<OrderItem> orderItems = new ArrayList<>();
-    public void addOrderItem(OrderItem orderItem) {
+    private List<OrderItem> orderItems=
+            new ArrayList<>();
+
+    public void addOrderItem(OrderItem orderItem){
         orderItem.setBook(this);
         orderItems.add(orderItem);
     }
 
-    public void addGenre(Genre genre) {
+    public void addGenres(Genre genre){
         genre.getBooks().add(this);
         genres.add(genre);
     }
 
-    public Book(int id, String isbn, String title,
-                String description, double price, int stock,String imgUrl) {
+    public Book(int id, String isbn, String title, String description, double price, int stock,String imgUrl) {
         this.id = id;
         this.isbn = isbn;
         this.title = title;

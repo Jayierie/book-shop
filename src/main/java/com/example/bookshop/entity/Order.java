@@ -26,16 +26,16 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
     private double totalAmount;
-
     @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems = new ArrayList<>();
-    public void addOrderItem(OrderItem orderItem) {
+    private List<OrderItem> orderItems=
+            new ArrayList<>();
+    @ManyToOne
+    private Customer customer;
+
+    public void add(OrderItem orderItem){
         orderItem.setOrder(this);
         orderItems.add(orderItem);
     }
-
-    @ManyToOne
-    private Customer customer;
 
     public Order(LocalDate orderDate, String billingAddress, String shippingAddress, PaymentMethod paymentMethod, double totalAmount) {
         this.orderDate = orderDate;

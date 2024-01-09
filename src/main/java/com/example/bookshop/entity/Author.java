@@ -18,17 +18,17 @@ public class Author {
     private int id;
     private String authorName;
     private String email;
-
     @OneToMany(mappedBy = "author",
-    cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Book> books = new ArrayList<>();
+            cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Book> books=
+            new ArrayList<>();
 
-    public void addBook(Book book) {
-        book.setAuthor(this);
-        books.add(book);
-    }
     public Author(String authorName, String email) {
         this.authorName = authorName;
         this.email = email;
+    }
+    public void addBook(Book book){
+        book.setAuthor(this);
+        books.add(book);
     }
 }

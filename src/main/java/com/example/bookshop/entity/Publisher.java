@@ -19,15 +19,15 @@ public class Publisher {
     private String publisherName;
     private String email;
 
-    @OneToMany(mappedBy = "publisher",
-    cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Book> books= new ArrayList<>();
+    @OneToMany(mappedBy = "publisher",cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Book> books=
+            new ArrayList<>();
 
-    public void addBook(Book book) {
+    public void addBook(Book book){
         book.setPublisher(this);
         books.add(book);
     }
-
     public Publisher(String publisherName, String email) {
         this.publisherName = publisherName;
         this.email = email;

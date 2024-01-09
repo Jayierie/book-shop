@@ -19,5 +19,5 @@ public class OrderItem {
     @JoinColumn(name = "order_id_fk")
     @ManyToOne
     private Order order;
-}
 
+}
