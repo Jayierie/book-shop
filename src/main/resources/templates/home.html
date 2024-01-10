@@ -16,7 +16,8 @@
                                 <h5 class="card-title" th:text="${books.get(3).title}"></h5>
                                 <p class="lead">Ancient trees are precious. There is little else on Earth that plays
                                     host to such a rich community of life within a single living organism.</p>
-                                <button class="btn btn-lg btn-outline-primary px-3 rounded">Details</button>
+                                <a class="btn btn-lg btn-outline-primary px-3 rounded"
+                                   th:href="@{/book/list-books}">Details</a>
                             </div>
                         </div>
                     </div>
@@ -28,7 +29,8 @@
                                 <p class="lead">People tend to move faster, speak louder, and compete more in crowded
                                     places. They
                                     may also feel more stressed and anxious due to the noise and congestion.</p>
-                                <button class="btn btn-lg btn-outline-primary px-3 rounded">Details</button>
+                                <a class="btn btn-lg btn-outline-primary px-3 rounded"
+                                   th:href="@{/book/list-books}">Details</a>
                             </div>
                         </div>
                     </div>
@@ -92,41 +94,7 @@
         </div>
     </div>
 
-    <section class="bg-dark text-white container-fluid">
-        <div class="container text-center p-5">
-            <h3>JOIN OUR NEWS BUYERS FOR DEALS AND UPDATE AND OFFERS</h3>
-            <div class="row justify-content-center">
-                <div class="col-10 col-md-6 col-sm-8 col-lg-4">
-                    <form action="#">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control">
-                            <button class="btn btn-success input-group-text">Search</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="footer" class="bg-secondary p-4 text-white">
-        <ul class="nav text-center justify-content-center flex-column
-         flex-sm-row">
-            <li class="nav-item text-white">
-                <a href="#" class="nav-link">FAQ</a>
-            </li>
-            <li class="nav-item text-white">
-                <a href="#" class="nav-link">EXPERIENCE</a>
-            </li>
-            <li class="nav-item text-white">
-                <a href="#" class="nav-link">CONTACT</a>
-            </li>
-            <li class="nav-item text-white">
-                <a href="#" class="nav-link">BOOKNOW</a>
-            </li>
-            <li class="nav-item text-white">
-                <a href="#" class="nav-link">EXPLORE</a>
-            </li>
-        </ul>
-    </section>
+
 </main>
 </body>
 </html>
