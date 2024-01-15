@@ -1,6 +1,6 @@
 package com.example.bookshop.service;
 
-import com.example.bookshop.dta.CartItem;
+import com.example.bookshop.dto.CartItem;
 import com.example.bookshop.entity.Book;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

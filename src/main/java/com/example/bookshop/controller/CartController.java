@@ -1,6 +1,6 @@
 package com.example.bookshop.controller;
 
-import com.example.bookshop.dta.CartItem;
+import com.example.bookshop.dto.CartItem;
 import com.example.bookshop.entity.Book;
 import com.example.bookshop.entity.BookId;
 import com.example.bookshop.service.BookService;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -42,13 +41,6 @@ public class CartController {
 
     @PostMapping("/checkout")
     public String checkout(CartItem cartItem) {
-        //cartItem.getCartItemQuantity().forEach(System.out::println);
-
-//            cartService.getCartItems()
-//                    .stream()
-//                    .map(c-> c.getCartItemQuantity().get(1))
-//                    .collect(Collectors.toSet())
-//        }
         int i = 0;
         for (CartItem item:cartService.getCartItems()) {
             if (cartItem.getCartItemQuantity().get(i)==null) {
@@ -59,7 +51,7 @@ public class CartController {
             i++;
         }
         cartService.getCartItems().forEach(System.out::println);
-        return "redirect:/cart/view-cart";
+        return "redirect:/auth/register";
     }
     @GetMapping("/delete")
     public String deleteCartItem(@RequestParam("id")int id,

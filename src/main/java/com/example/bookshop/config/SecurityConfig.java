@@ -3,6 +3,7 @@ package com.example.bookshop.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,8 +32,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.formLogin(Customizer.withDefaults());
         http.authorizeHttpRequests( a -> {
-           a.requestMatchers("/static/**/","/book/**","/cart/**","/","/home","/auth/**")
+           a.requestMatchers("/bootstrap/**","/book/**","/cart/**","/","/home","/auth/**")
                    .permitAll()
+                   .requestMatchers(HttpMethod.POST,"/auth/register").permitAll()
                    .anyRequest().authenticated();
         });
         http.csrf( c -> c.disable());

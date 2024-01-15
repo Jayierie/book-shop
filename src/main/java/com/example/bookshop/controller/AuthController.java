@@ -8,26 +8,27 @@ import com.example.bookshop.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping
+@RequestMapping("/auth")
 public class AuthController {
     private final AuthService authService;
     private final CartService cartService;
 
-    @GetMapping("/")
+    @RequestMapping("/register")
     public String register(Model model) {
         model.addAttribute("customer",new Customer());
         return "register";
     }
+    @PostMapping("/save-customer")
     public String saveCustomer(@RequestParam("billingAddress")String billingAddress,
                                @RequestParam("shippingAddress")String shippingAddress,
                                @RequestParam("payment")PaymentMethod method,
@@ -44,11 +45,20 @@ public class AuthController {
             return "register";
         }
         authService.register(customer,order);
+        this.customer = customer;
         return "redirect:/auth/info";
     }
+    private Customer customer;
     @GetMapping("/info")
-    public String checkoutInfo() {
-        return "info";
+    public ModelAndView checkoutInfo(ModelMap map, //ModelMap, Map
+                                     @ModelAttribute("totalPrice")double totalPrice) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("cartItems",cartService.getCartItems());
+        mv.addObject("totalPrice",totalPrice);
+        mv.addObject("customerInfo",authService
+                .findCustomerInfoByCustomerName(customer.getCustomerName()));
+        mv.setViewName("info");
+        return mv;
     }
     @GetMapping("/login")
     public String login() {

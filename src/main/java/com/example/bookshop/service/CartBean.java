@@ -1,6 +1,6 @@
 package com.example.bookshop.service;
 
-import com.example.bookshop.dta.CartItem;
+import com.example.bookshop.dto.CartItem;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
